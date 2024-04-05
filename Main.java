@@ -5,11 +5,13 @@ public class Main {
     Stack stack;
     char[] input;
     int mode;
+    boolean printResult;
 
 
     public Main() {
         scanner = new Scanner(System.in);
         stack = new Stack();
+        printResult = true;
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -47,11 +49,11 @@ public class Main {
         System.out.println("Please input a calculation in UPN");
         while (!inputCorrect) {
             String input = scanner.nextLine();
-            if (input.matches("(\\d\\d(\\+|\\*))(\\d\\d(\\+|\\*)(\\+|\\*))*")) {
+            if (input.matches("(\\d|\\+|\\*)*")) {
                 this.input = input.toCharArray();
                 inputCorrect = true;
             } else {
-                System.out.println("Invalid input");
+                System.out.println("Invalid input alphabet");
             }
         }
 
@@ -66,16 +68,24 @@ public class Main {
                     Thread.sleep(1000);
                 }
             } else {
-                stack.calculateStack(c);
-                if (mode == 1) {
-                    System.out.println("Current stack:\n" + stack.toString());
-                    Thread.sleep(1000);
+                try{
+                    stack.calculateStack(c);
+                    if (mode == 1) {
+                        System.out.println("Current stack:\n" + stack.toString());
+                        Thread.sleep(1000);
+                    }
+                }catch(IllegalArgumentException e){
+                    printResult = false;
+                    System.out.println(e.getMessage()); 
+                    break;
                 }
             } 
         }
     }
     private void printResult(){
-        System.out.println("The result is:\n" + stack.getResult());
+        if (printResult) {
+        System.out.println(stack.getResult());
+        }
     }
 
 }

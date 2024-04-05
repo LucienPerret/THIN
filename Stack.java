@@ -9,11 +9,17 @@ public class Stack {
     }
 
     public void putOnStack(int input) {
-        stack.add(input);
+        stack.addFirst(input);
     }
 
-    public void calculateStack(char operand) {
+    public void calculateStack(char operand) throws IllegalArgumentException {
         int result = 0;
+        if(stack.size() < 2){
+            throw new IllegalArgumentException("""
+            The Pushdown-Automaton has reached an none accepting state because there are not enough
+            values on the stack for the calculation
+            """);
+        } else {
         int a = stack.get(0);
         int b = stack.get(1);
         switch (operand) {
@@ -22,29 +28,32 @@ public class Stack {
         }
         stack.remove(0);
         stack.remove(0);
-        stack.add(result);
+        stack.addFirst(result);
         this.result = result;
+        }
+
     }
     public String getResult(){
         String result;
         if(stack.size() > 1){
-            result = "The stack has more than 1 value on it.";
+            result = """
+            The Pushdown-Automaton has ended in a none accepting state because there are multiple values on
+            the stack
+            """;
         }else{
-            result = Integer.toString(this.result);
+            result = "The result is:\n" + Integer.toString(this.result);
         }
         return result;
     }
 
-    public ArrayList<Integer> getStack(){
-        return stack;
-    }
+
     @Override
     public String toString(){
         String stringStack = "";
         StringBuilder stringBuilder = new StringBuilder();
         for (Integer integer : stack) {
-            stringBuilder.insert(0,"\n");
-            stringBuilder.insert(0,integer);
+            stringBuilder.append("\n");
+            stringBuilder.append(integer);
         }
         stringStack = stringBuilder.toString();
         return stringStack;
