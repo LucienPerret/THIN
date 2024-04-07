@@ -1,6 +1,5 @@
 {-# OPTIONS_GHC #-}
-import Data.Char
-import Debug.Trace (trace, traceShowId)
+import Data.Char ( digitToInt, isNumber )
 
 pushDown :: [Char] -> [Int]
 pushDown xs = calcPDA xs []
@@ -10,7 +9,6 @@ calcPDA [] ys = ys
 calcPDA (x:xs) ys  
             | isNumber x = calcPDA xs (digitToInt x:ys)
             | otherwise = calcPDA xs (doCalc (findOperator x) ys)
-
 
 doCalc :: (a -> a -> a) -> [a] -> [a]
 doCalc f ys =  f (head ys) (ys !! 1) : drop 2 ys
