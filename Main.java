@@ -48,7 +48,7 @@ public class Main {
         boolean inputCorrect = false;
         System.out.println("Please input a calculation in UPN");
         while (!inputCorrect) {
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().replaceAll("\\s", "");
             if (input.matches("(\\d|\\+|\\*)*")) {
                 this.input = input.toCharArray();
                 inputCorrect = true;

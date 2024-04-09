@@ -14,5 +14,6 @@ doCalc :: (a -> a -> a) -> [a] -> [a]
 doCalc f ys =  f (head ys) (ys !! 1) : drop 2 ys
 
 findOperator :: Num a => Char -> a -> a -> a
-findOperator f | f == '+' = (+)
-               | f == '*' = (*)
+findOperator f 
+            | f == '+' = (+)
+            | f == '*' = (*)
