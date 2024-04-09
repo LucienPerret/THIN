@@ -1,8 +1,8 @@
 {-# OPTIONS_GHC #-}
 import Data.Char ( digitToInt, isNumber )
 
-pushDown :: [Char] -> [Int]
-pushDown xs = calcPDA xs []
+pushDown :: [Char] -> Int
+pushDown xs = head (calcPDA xs [])
 
 calcPDA :: [Char] -> [Int] -> [Int]
 calcPDA [] ys = ys
