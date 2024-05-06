@@ -6,7 +6,7 @@ public class Head {
 		currentPosition = 0;
 	}	
 	public void moveHead(char direction){
-		if(direction == 'R'){
+		if(Character.toLowerCase(direction) == 'r'){
 			currentPosition++;
 		} else {
 			currentPosition --;

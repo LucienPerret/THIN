@@ -12,7 +12,7 @@ public class Tape {
 		if(position > 0){
 			tape[position] = input;
 		} else {
-			//TODO throw exception here
+			throw new ArrayIndexOutOfBoundsException();
 		}
 		
 	}

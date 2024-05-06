@@ -10,6 +10,7 @@ public class State {
 	public State(String state){
 		this.state = state;
 	}
+
 	public State(String state, char character) {
 		this.state = state;
 		this.character = character;
