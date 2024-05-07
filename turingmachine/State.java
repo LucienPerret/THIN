@@ -1,5 +1,7 @@
 package turingmachine;
 
+import java.util.Objects;
+
 public class State {
 
 	private String state;
@@ -21,24 +23,43 @@ public class State {
 		this.state = state;
 		this.character = character;
 		this.direction = direction;
-		isAccepted = false;
-	}
-	public void setIsAccepted(){
-		isAccepted = true;
+		if(state == "q2"){
+			isAccepted = true;
+		}
 	}
 	public boolean isAccepted(){
 		return isAccepted;
 	}
-
+	public void setCharacter(char character){
+		this.character = character;
+	}
+	public char getCharacter(){
+		return character;
+	}
+	public char getDirection(){
+		return direction;
+	}
+	public void setState(String state){
+		this.state = state;
+	}
+	public String getState(){
+		return state;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
-		State compareState = (State) obj;
-		boolean result = false;
-		if (this.state == compareState.state && this.character == compareState.character
-				&& this.direction == compareState.direction) {
-			result = true;
-		}
-		return result;
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		State state = (State) obj;
+		return Objects.equals(this.state, state.state) &&
+			   Objects.equals(this.character, state.character) &&
+			   Objects.equals(this.direction, state.direction) &&
+			   Objects.equals(this.isAccepted, state.isAccepted);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(state, character, direction, isAccepted);
 	}
 
 }
