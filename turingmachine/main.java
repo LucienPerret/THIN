@@ -1,5 +1,8 @@
 package turingmachine;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Main {
@@ -13,13 +16,13 @@ public class Main {
 		scanner = new Scanner(System.in);
 		printResult = false;
 	}
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		Main main = new Main();
 		main.runIt();
 	}	
-	public void runIt() throws InterruptedException{
+	public void runIt() throws InterruptedException, IOException{
 		determineMode();
-		readInput();
+		determineInputMethod();
 		turingmachine = new Turingmachine(input, mode);
 	}
 	
@@ -40,8 +43,29 @@ public class Main {
             }
         }
     }
+	private void determineInputMethod() throws IOException {
+        boolean inputCorrect = false;
+        System.out.println("""
+                            Choose an input method.
+                            1. String
+                            2. File
+                            """);
+        while (!inputCorrect) {
+            String input = scanner.nextLine();
+            if (input.matches("1|2")) {
+				if (input.equals("1")) {
+					readInputString();	
+				} else {
+					readInputFile();
+				}
+                inputCorrect = true;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
+    }
 
-    private void readInput() {
+    private void readInputString() {
         boolean inputCorrect = false;
         System.out.println("Please input a Goedel number or binary input");
         while (!inputCorrect) {
@@ -55,5 +79,21 @@ public class Main {
         }
 
     }
+
+	private void readInputFile() throws IOException{
+		boolean inputCorrect = false;
+		String filePath = "goedelnumber.txt";
+		System.out.println("Please input the path to file");
+		while (!inputCorrect) {
+			String input = scanner.nextLine();
+			if (input.matches("\\w*\\/\\w*\\.txt")) {
+				filePath =  input;
+				inputCorrect = true;
+			} else {
+				System.out.println("Invalid input");
+			}
+		}
+		input = Files.readString(Path.of(filePath));
+	}
 
 }

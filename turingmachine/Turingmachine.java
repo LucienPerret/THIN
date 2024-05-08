@@ -14,7 +14,7 @@ public class Turingmachine {
 	private boolean finished = false;
 	private boolean isAccepted = false;
 	private int mode;
-	private int delay = 2;
+	private int delay = 5;
 	private int step = 0;
 
 	public Turingmachine(String input, int mode) throws InterruptedException {
@@ -93,10 +93,12 @@ public class Turingmachine {
 			}
 			head.moveHead(nextState.getDirection());
 			currentState.setState(nextState.getState());
-			System.out.print("\n");
 		}
 		String currentString = currentState.getState();
 		if (currentString.equals("q2")) {
+			if(mode == 2){
+				printTape();
+			}
 			System.out.println(
 					"\nThe turingmachine has reached an accepting state after: " + Integer.toString(step) + " Steps");
 		} else {
@@ -114,18 +116,23 @@ public class Turingmachine {
 		System.out.print("_______________");
 		for (int i = 0; i < tape.size(); i++) {
 			if (headPos < 0 && !headPrinted) {
-				System.out.print(currentState.getState());
-				System.out.print(Character.toString('_').repeat(0 - headPos));
+				System.out.print("\u001B[31m" + currentState.getState() + "\u001B[0m");
+				System.out.print("\u001B[34m" + '_' + "\u001B[0m");
 				headPrinted = true;
 			}
 
 			if (i == headPos) {
-				System.out.print(currentState.getState());
-				System.out.print(Character.toString(tape.get(i)));
+				System.out.print("\u001B[31m" + currentState.getState() + "\u001B[0m");
+				System.out.print("\u001B[34m" + Character.toString(tape.get(i)) + "\u001B[0m");
 			} else {
 				System.out.print(Character.toString(tape.get(i)));
 			}
+			if (headPos >= tape.size() && !headPrinted && i == tape.size() - 1) {
+				System.out.print(currentState.getState());
+				System.out.print("\u001B[34m" + '_' + "\u001B[0m");
+			}
 		}
 		System.out.print("_______________");
+		System.out.print("\n");
 	}
 }
