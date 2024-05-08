@@ -12,7 +12,6 @@ public class Turingmachine {
 	private char[] directionTable = { 'l', 'r' };
 	private State currentState;
 	private boolean finished = false;
-	private boolean isAccepted = false;
 	private int mode;
 	private int delay = 5;
 	private int step = 0;
@@ -77,7 +76,6 @@ public class Turingmachine {
 			if (stateTransitions.get(currentState) == null) {
 				if (currentState.isAccepted()) {
 					finished = true;
-					isAccepted = true;
 				} else {
 					finished = true;
 					break;

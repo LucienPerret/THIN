@@ -83,11 +83,11 @@ public class Main {
 	private void readInputFile() throws IOException{
 		boolean inputCorrect = false;
 		String filePath = "goedelnumber.txt";
-		System.out.println("Please input the path to file");
+		System.out.println("Please input the name of the file to read");
 		while (!inputCorrect) {
 			String input = scanner.nextLine();
-			if (input.matches("\\w*\\/\\w*\\.txt")) {
-				filePath =  input;
+			if (input.matches("\\w*\\.txt")) {
+				filePath =  "turingmachine/" + input;
 				inputCorrect = true;
 			} else {
 				System.out.println("Invalid input");
